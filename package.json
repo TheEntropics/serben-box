@@ -1,0 +1,24 @@
+{
+  "name": "serbenbox",
+  "description": "File upload server",
+  "version": "0.0.1",
+  "author": {
+    "name": "Oanca Andrei",
+    "email": "oancaionutandrei@gmail.com"
+  },
+  "license": "© Oanca Andrei",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "homepage": "andrei.serben.tk",
+  "dependencies": {
+    "express": "^4.12.3",
+    "formidable": "^1.0.17",
+    "serve-index": "^1.7.2",
+    "tunnel": "0.0.3"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  }
+}

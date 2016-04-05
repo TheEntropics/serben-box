@@ -1,0 +1,21 @@
+#droparea {
+  border: 2px dashed #bbb;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 25px;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  color: #bbb;
+  height: 200px;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+#dropareafile {
+  padding-top: 20px;
+  font-size: 15px;
+  text-align: center;
+  color: #bbb;
+}
