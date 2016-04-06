@@ -129,50 +129,70 @@ app.post("/upload", function(req, res) {
 
 app.post("/loadfromurl", function(req, res) {
 	var form = new formidable.IncomingForm();
-	form.parse(req, function(err, fields, files){
+	form.parse(req, function(err, fields, files) {
 		if (err) {
 			console.error(err.message);
 			return;
 		}
+
 		res.writeHead(200, {'content-type': 'text/plain'});
-		if(fields.url) {
-			var myfilename = fields.url.match(/(?:[^\/][\d\w\.-]+)$/)[0];
+		if (fields.url) {
+			var filename = fields.url.match(/(?:[^\/][\d\w\.-]+)$/)[0];
 
-			console.log("Downloading file from URL: " + myfilename + " (" + fields.url + ")" );
+			if (!uploads[filename]) {
 
-			var username = fields.username;
-			var password = fields.password;
+				uploads[filename] = {
+					fromUrl: true,
+					completed: false
+				};
 
-			var options = {
-				username: username,
-				password: password
-				/*protocol: 'https',
-				host: 'raw.github.com',
-				path: '/Fyrd/caniuse/master/data.json',
-				method: 'GET'*/
-			};
-			//options.gunzip = false;
-			//options.proxy = {};
-			//options.proxy.protocol = 'http';
-			//options.proxy.host = 'someproxy.org';
-			//options.proxy.port = 1337;
-			//options.proxy.proxyAuth = '{basic auth}';
-			//options.proxy.headers = {'User-Agent': 'Node'};
+				console.log("Downloading file from URL: " + filename + " (" + fields.url + ")" );
+				var username = fields.username;
+				var password = fields.password;
 
-			var download = wget.download(fields.url, config.uploadDirectory + "/" + myfilename, options);
-			download.on('error', function(err) {
-				console.log(err);
-			});
-			download.on('end', function(output) {
-				//checkUploadedFile(myfilename);
-				console.log(myfilename, "uploaded!");
-			});
-			download.on('progress', function(progress) {
-				// code to show progress bar
-			});
+				var options = {
+					username: username,
+					password: password
+					/*protocol: 'https',
+					host: 'raw.github.com',
+					path: '/Fyrd/caniuse/master/data.json',
+					method: 'GET'*/
+				};
+				//options.gunzip = false;
+				//options.proxy = {};
+				//options.proxy.protocol = 'http';
+				//options.proxy.host = 'someproxy.org';
+				//options.proxy.port = 1337;
+				//options.proxy.proxyAuth = '{basic auth}';
+				//options.proxy.headers = {'User-Agent': 'Node'};
 
+				var download = wget.download(fields.url, config.uploadDirectory + "/" + filename, options);
+				download.on('error', function(err) {
+					console.log(err);
+					// Deleting current download
+					deleteFile(filename);
+					uploads[filename] = undefined;
+				});
+				download.on('end', function(output) {
+					uploads[filename].completed = true;
+					//checkUploadedFile(filename);
+					console.log(filename, "uploaded!");
+					if (config.fileTTL !== undefined && config.fileTTL !== 0) {
+						// Delete uploaded file after specified time
+						uploads[filename].timeout = setTimeout(function () {
+							deleteFile(filename);
+							uploads[filename] = undefined;
+						}, config.fileTTL * 1000); // Seconds
+					}
+				});
+				download.on('progress', function(progress) {
+					// code to show progress bar
+				});
+				res.end('download started');
+			} else {
+				res.end('already uploaded');
+			}
 		}
-		res.end();
 	});
 });
 

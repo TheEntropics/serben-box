@@ -48,7 +48,11 @@
     xhr.open('POST', '/loadfromurl', true);
     xhr.onload = function(e) {
       if (this.status == 200) {
-        progress(1);
+        if (this.response === "download started") {
+          progress(3);
+        } else if (this.response === "already uploaded") {
+          progress(2);
+        }
         console.log(this.response);
       }
     };
@@ -98,6 +102,10 @@
     } else if (p == 2) {
       bar.className = 'progress-bar progress-bar-warning progress-bar-striped  active';
       bar.innerHTML = 'Already uploaded!';
+      bar.style.width = '100%';
+    } else if (p == 3) {
+      bar.className = 'progress-bar progress-bar-success progress-bar-striped  active';
+      bar.innerHTML = 'Download started!';
       bar.style.width = '100%';
     } else {
       bar.className = 'progress-bar progress-bar-striped  active';
