@@ -80,7 +80,7 @@ app.post("/upload", function(req, res) {
 				console.log(fields.name, 'got chunk', fields.chunk);
 				if (uploads[fields.name].completed) {
 					console.log('File already uploaded:', fields.name);
-					res.end('upload complete');
+					res.end('already uploaded');
 				} else if (fields.data !== undefined || fields.chunk === (uploads[fields.name].chunk+1)) {
 					// Decode base64
 					var binaryChunk = decodeBase64Chunk(fields.data);

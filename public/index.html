@@ -1,75 +1,81 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>SerbenBox</title>
-		<link href="/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/css/style.css" rel="stylesheet">
-		<link href="css/dropzone.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="span8">
-						<h1>SerbenBox</h1>
-					</div>
-					<div class="span4">
-						<div id="message" class="alert alert-success">
-							<strong>Ready to upload!</strong>
-						</div>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SerbenBox</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/dropzone.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="span8">
+					<h1>SerbenBox</h1>
+				</div>
+				<div class="span4">
+					<div id="message" class="alert alert-success">
+						<strong>Ready to upload!</strong>
 					</div>
 				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<label for="fileinput" style="display: table; width: 100%;">
-						<div id="drop_zone">Drop file here!<br>or click to open.
-							<div class="ng-binding" id="dropareafile">No file selected.</div>
-						</div>
-					</label>
-					<form class="ng-pristine ng-valid" id="fileinput-form" style="display: none;">
-						<input id="fileinput" data-string="" accept="" type="file">
-					</form>
-				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="input-group form-group">
-						<input class="form-control" placeholder="URL" id="url" type="text">
-						<span class="input-group-addon btn btn-default" id="sendurl"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true" style="display: inline-block;"></span></span>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="username" id="username">
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="password" id="password">
-					</div>
-				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="span4">
-						<a id="submit" class="btn btn-primary send_button">Upload file</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<p>
-						<div class="progress progress-striped active" style="height: 45px;">
-							<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%; line-height: 45px; font-size: 15px;">
-								<span class="sr-only"></span>
-							</div>
-						</div>
-					</p>
-				</div>
-			</div>
-
 		</div>
-	</body>
-	<script src="/js/upload.client.js"></script>
+		<div class="row">
+			<div class="col-xs-12">
+				<label for="fileinput" style="display: table; width: 100%;">
+					<div id="drop_zone">Drop file here!<br>or click to open.
+						<div class="ng-binding" id="dropareafile">No file selected.</div>
+					</div>
+				</label>
+				<form class="ng-pristine ng-valid" id="fileinput-form" style="display: none;">
+					<input id="fileinput" data-string="" accept="" type="file">
+				</form>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="span4">
+					<a id="submit" class="btn btn-primary send_button">Upload file</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<p>
+					<div class="progress" style="height: 45px;">
+						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%; line-height: 45px; font-size: 15px;">
+							<span class="sr-only"></span>
+						</div>
+					</div>
+				</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="span4">
+					<div id="message" class="alert alert-info">
+						<strong>Or paste link below...</strong>
+					</div>
+				</div>
+				<div class="input-group form-group">
+					<input class="form-control" placeholder="URL" id="url" type="text">
+					<span class="input-group-addon btn btn-default" id="sendurl"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true" style="display: inline-block;"></span></span>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="username" id="username">
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" placeholder="password" id="password">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/jquery.js"></script>
+<script src="js/upload.client.js"></script>
 </html>
