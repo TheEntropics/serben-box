@@ -52,6 +52,8 @@
           progress(3);
         } else if (this.response === "already uploaded") {
           progress(2);
+        } else if (this.response === "invalid uri") {
+          progress(4);
         }
         console.log(this.response);
       }
@@ -106,6 +108,10 @@
     } else if (p == 3) {
       bar.className = 'progress-bar progress-bar-success progress-bar-striped  active';
       bar.innerHTML = 'Download started!';
+      bar.style.width = '100%';
+    } else if (p == 4) {
+      bar.className = 'progress-bar progress-bar-danger progress-bar-striped  active';
+      bar.innerHTML = 'Invalid URL!';
       bar.style.width = '100%';
     } else {
       bar.className = 'progress-bar progress-bar-striped  active';

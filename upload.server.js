@@ -5,6 +5,9 @@ var qs = require('querystring');
 var util = require('util');
 var wget = require('./lib/getfile');
 var serveIndex = require('serve-index');
+var url = require("url");
+var path = require("path");
+var validUrl = require('valid-url');
 
 var config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
@@ -137,7 +140,20 @@ app.post("/loadfromurl", function(req, res) {
 
 		res.writeHead(200, {'content-type': 'text/plain'});
 		if (fields.url) {
-			var filename = fields.url.match(/(?:[^\/][\d\w\.-]+)$/)[0];
+
+			if (!validUrl.isUri(fields.url)){
+				// console.log('Invalid URI.', fields.url);
+				res.end('invalid uri');
+				return;
+			}
+
+			var parsed = url.parse(fields.url);
+			var filename = path.basename(parsed.pathname);
+			if (parsed.pathname === null || filename === null || filename === "") {
+				// console.log('Invalid URI.', fields.url);
+				res.end('invalid uri');
+				return;
+			}
 
 			if (!uploads[filename]) {
 

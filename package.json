@@ -16,7 +16,8 @@
     "express": "^4.12.3",
     "formidable": "^1.0.17",
     "serve-index": "^1.7.2",
-    "tunnel": "0.0.3"
+    "tunnel": "0.0.3",
+    "valid-url": "^1.0.9"
   },
   "engines": {
     "node": ">= 0.10.0"
