@@ -22,12 +22,12 @@ function decodeBase64Chunk(dataString) {
 }
 
 function deleteFile(filename) {
-	fs.unlink(config.uploadDirectory + "/" + + filename, function(err){
+	fs.unlink(config.uploadDirectory + "/" + filename, function(err) {
 		if (err) {
-			console.log('File could not be deleted: ', filename);
+			console.log("Error deleting", filename);
 		} else {
-			console.log('File deleted: ', filename);
-		};
+			console.log(filename, "has been deleted.");
+		}
 	});
 }
 
@@ -99,6 +99,13 @@ app.post("/upload", function(req, res) {
 							console.log('Upload complete:', fields.name);
 							uploadComplete = true;
 							uploads[fields.name].completed = true;
+							if (config.fileTTL !== undefined && config.fileTTL !== 0) {
+								// Delete uploaded file after specified time
+								uploads[fields.name].timeout = setTimeout(function () {
+									deleteFile(fields.name);
+									uploads[fields.name] = undefined;
+								}, config.fileTTL * 1000); // Seconds
+							}
 							// End transmission
 							res.end('upload complete');
 						}
